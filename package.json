@@ -7,9 +7,18 @@
     "doc": "docs"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js",
+    "lint": "eslint '**/*.js'",
+    "test": "jest --verbose --coverage",
+    "test-watch": "jest --watchAll --verbose --coverage",
+    "jsdoc": "jsdoc -c ./docs/config/jsdoc.config.json"
   },
   "keywords": [],
   "author": "Jesse Van Volkinburg <vanvoljg@gmail.com>",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@types/jest": "^24.0.13",
+    "eslint": "^5.16.0",
+    "jest": "^24.8.0"
+  }
 }
