@@ -32,11 +32,13 @@ class Bitmap {
     this.buffer = buffer;
     this.type = buffer.toString('utf-8', 0, 2);
 
+    if (this.type !== 'BM') { this.invalid = true; }
+
     for (let offset in bitmap32Offsets) {
       this.info[offset] = buffer.readInt32LE(bitmap32Offsets[offset]);
     }
 
-
+    console.log(this);
 
   }
   /**
@@ -107,6 +109,8 @@ function transformWithCallbacks() {
     }
 
     bitmap.parse(buffer);
+
+    if (bitmap.invalid) { throw 'File is not a valid bitmap'; }
 
     // bitmap.transform(operation);
 
