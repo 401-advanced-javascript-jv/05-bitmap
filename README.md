@@ -1,46 +1,50 @@
-# LAB - 
+# LAB - 05
 
-## Project Name
+## Bitmap Transformer
 
-### Author: Student/Group Name
+### Author: Jesse Van Volkinburg
 
 ### Links and Resources
 * [submission PR](http://xyz.com)
-* [travis](http://xyz.com)
-* [back-end](http://xyz.com) (when applicable)
-* [front-end](http://xyz.com) (when applicable)
-
-#### Documentation
-* [api docs](http://xyz.com) (API servers)
-* [jsdoc](http://xyz.com) (Server assignments)
-* [styleguide](http://xyz.com) (React assignments)
+* [travis](https://www.travis-ci.com/401-advanced-javascript-jv/05-bitmap)
 
 ### Modules
-#### `modulename.js`
+#### `bitmap.js`
 ##### Exported Values and Methods
 
-###### `foo(thing) -> string`
-Usage Notes or examples
+###### `Bitmap` Class which describes a Bitmap object containing
+- `.file` path to the file which the Bitmap is created
+- `.buffer` the buffer from reading the file
+- `.type` string `BM` 
+- `.info` object with the following properties:
+  - `.bitmapSize` the size of the image in bytes
+  - `.pixelArray` the byte offset where BMP pixel information starts
+  - `.headerSize` the size of the DIB BMP information header
+  - `.width` the width of the image in pixels
+  - `.height` the height of the image in pixels
+  - `.compressionMethod` the method of compression (see [Wikipedia- BMP File Format - DIB Header (Bitmap Information Header)](https://en.wikipedia.org/wiki/BMP_file_format#DIB_header_(bitmap_information_header)) for a table)
+  - `.stride` the number of bytes per row of pixels in the pixel array
+  - `.paletteColorCount` the number of colors in the color palette, for indexed color only (8-bit or lower)
+  - `.colorPaletteOffset` the byte offset for the color palette
+  - `.colorPalette` An array containing the indexed colors, stored as {r, g, b} where each `r`ed, `g`reen, and `b`lue value can range from 0-255
 
-###### `bar(array) -> array`
-Usage Notes or examples
+#### `transforms.js`
+##### Exported Values and Methods
+
+###### `transformColors(Bitmap)` takes in a Bitmap object, this method scrambles the entire image, pixel by pixel. Basically creates a noise image.
+###### `doTheInversion(Bitmap)` takes in a Bitmap object, this method flips the image top-to-bottom (horizontally).
+###### `rows(Bitmap)` takes in a Bitmap object, scrambles every other row of the image.
+###### `columns(Bitmap)` takes in a Bitmap object, scrambles every other column of the image.
 
 ### Setup
-#### `.env` requirements
-* `PORT` - Port Number
-* `MONGODB_URI` - URL to the running mongo instance/db
-
 #### Running the app
-* `npm start`
-* Endpoint: `/foo/bar/`
-  * Returns a JSON object with abc in it.
-* Endpoint: `/bing/zing/`
-  * Returns a JSON object with xyz in it.
+* `npm start <file>.bmp <operation>`
+* `npm start` for usage notes (`node index.js` and `npm start` are interchangeable, if one is more comfortable than the other).
+* `<operation>` should be one of the following:
+  * `colors` / `colours` - Will randomize the whole image
+  * `invert` - Will flip the image top-to-bottom
+  * `rows` - Will randomize every other row
+  * `cols` - Will randomize every other column
   
 #### Tests
-* How do you run tests?
-* What assertions were made?
-* What assertions need to be / should be made?
-
-#### UML
-Link to an image of the UML for your application and response to events
+* `npm test` To run tests
