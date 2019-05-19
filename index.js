@@ -57,7 +57,6 @@ function transformWithCallbacks(file, operation) {
 
 function main() {
 
-  // TODO: Explain how this works (in your README)
   const [file, operation] = process.argv.slice(2);
 
   if (!file) {

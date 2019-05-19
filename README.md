@@ -27,6 +27,10 @@
   - `.paletteColorCount` the number of colors in the color palette, for indexed color only (8-bit or lower)
   - `.colorPaletteOffset` the byte offset for the color palette
   - `.colorPalette` An array containing the indexed colors, stored as {r, g, b} where each `r`ed, `g`reen, and `b`lue value can range from 0-255
+- `.transform(operation)` this method manually runs one of the available transformations on the Bitmap object
+- `.pixelColor(x, y)` (getter) this method gets the color of a specified pixel. Returns an object of the format {r, g, b}
+- `.pixelColor(x, y, color)` (setter) this method sets the color of a specified pixel when called with a third parameter; `color` parameter must be of the form `{r:0, g:0, b:0}`, where `r`ed, `g`reen, an `b`lue are in the range 0-255.
+
 
 #### `transforms.js`
 ##### Exported Values and Methods
