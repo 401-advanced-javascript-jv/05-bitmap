@@ -1,7 +1,6 @@
 'use strict';
 
 const fs = require('fs');
-
 const Bitmap = require('./lib/bitmap.js');
 
 const displayHelp = () => {
@@ -13,7 +12,7 @@ Operation must be one of:
 - colours : same as colors
 - invert  : inverts the image
 - rows    : randomizes the colors of each pixel on every other line
-- columns : randomizes the colors of each pixel on evefy other column
+- columns : randomizes the colors of each pixel on every other column
 `);
   return;
 };
@@ -34,7 +33,9 @@ function transformWithCallbacks(file, operation) {
       return;
     }
 
-    bitmap.transform(operation);
+    console.log(bitmap.pixelColor(25, 16));
+    
+    // bitmap.transform(operation);
 
     if (bitmap.invalidOperation) {
       console.error('Invalid transformation requested');
@@ -42,14 +43,14 @@ function transformWithCallbacks(file, operation) {
       return;
     }
 
-    console.log(bitmap);
-
     // Note that this has to be nested!
     // Also, it uses the bitmap's instance properties for the name and thew new buffer
     // fs.writeFile(bitmap.newFile, bitmap.buffer, (err, out) => {
     //   if (err) {
-    //     throw err;
+    //     console.error('Unable to write file');
+    //     return;
     //   }
+    //
     //   console.log(`Bitmap Transformed: ${bitmap.newFile}`);
     // });
   });
