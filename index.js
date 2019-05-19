@@ -12,21 +12,22 @@ Operation must be one of:
 - colors  : randomizes the colors - scrambles everything in unexpected ways
 - colours : same as colors
 - invert  : inverts the image
-- rows   : randomizes the colors of each pixel on every other line
+- rows    : randomizes the colors of each pixel on every other line
+- columns : randomizes the colors of each pixel on evefy other column
 `);
   return;
 };
 
 // ------------------ GET TO WORK ------------------- //
 
-function transformWithCallbacks() {
+function transformWithCallbacks(file, operation) {
   fs.readFile(file, (err, buffer) => {
     if (err) {
       console.error('Unable to read the file');
       return;
     }
 
-    bitmap.parse(buffer);
+    let bitmap = new Bitmap(file, buffer);
 
     if (bitmap.invalid) {
       displayHelp();
@@ -41,6 +42,8 @@ function transformWithCallbacks() {
       return;
     }
 
+    console.log(bitmap);
+
     // Note that this has to be nested!
     // Also, it uses the bitmap's instance properties for the name and thew new buffer
     // fs.writeFile(bitmap.newFile, bitmap.buffer, (err, out) => {
@@ -52,9 +55,22 @@ function transformWithCallbacks() {
   });
 }
 
-// TODO: Explain how this works (in your README)
-const [file, operation] = process.argv.slice(2);
+function main() {
 
-let bitmap = new Bitmap(file);
+  // TODO: Explain how this works (in your README)
+  const [file, operation] = process.argv.slice(2);
 
-transformWithCallbacks();
+  if (!file) {
+    displayHelp();
+    return;
+  }
+  
+  if (operation === 'help') {
+    displayHelp();
+    return;
+  }
+  
+  transformWithCallbacks(file, operation);
+}
+
+main();
