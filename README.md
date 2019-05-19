@@ -5,7 +5,7 @@
 ### Author: Jesse Van Volkinburg
 
 ### Links and Resources
-* [submission PR](http://xyz.com)
+* [submission PR](https://github.com/401-advanced-javascript-jv/05-bitmap/pull/1)
 * [travis](https://www.travis-ci.com/401-advanced-javascript-jv/05-bitmap)
 
 ### Modules
