@@ -35,6 +35,17 @@ Each entry is 4 bytes   B G R 0
 
 If BIT_COUNT < 16, each pixel is a BIT_COUNT # of bytes which points to an entry in the color table
 
+16-bit images can be either 5 bits per color or 6 bits for green.
+5 bits each:                6-bit green:
+length is 15 max
+white   0111111111111111    1111111111111111
+black   0000000000000000    0000000000000000
+red     0111110000000000    1111100000000000
+green   0000001111100000    0000011111100000
+blue    0000000000011111    0000000000011111
+
+
+
 PIXEL STORAGE
 Stored in rows of size: CEIL(BIT_COUNT * WIDTH / 32) * 4 bytes, each row padded up to a 4-byte multiple (little endian); width % 4 gives the number of bytes to pad each row with
 
