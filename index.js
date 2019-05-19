@@ -37,8 +37,9 @@ function transformWithCallbacks(file, operation) {
     // console.log(bitmap.pixelColor(26, 16));
     // console.log(bitmap.pixelColor(26, 16, ))
     // console.log(bitmap.pixelColor(25, 16));
-    console.log('white', bitmap.pixelColor(1, 1));
+    // console.log('white', bitmap.pixelColor(1, 1));
     // console.log('black', bitmap.pixelColor(2, 1));
+    console.log('black', bitmap.pixelColor(2, 1, {r: 31, g: 31, b: 31}));
     // console.log('red', bitmap.pixelColor(3, 1));
     // console.log('green', bitmap.pixelColor(4, 1));
     // console.log('blue', bitmap.pixelColor(5, 1));
