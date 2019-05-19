@@ -1,0 +1,37 @@
+Bitmap header
+All integers stored in LE format
+Size 2 bytes - readInt16LE
+Size 4 bytes - readInt32LE
+Offset 0    Size 2 bytes    'BM' in ASCII encoding
+Offset 2    Size 4 bytes    Bitmap size in bytes
+Offset 10   Size 4 bytes    Bitmap image data / pixel array address/offset/location
+
+DIB HEADER - starts @ offset 14
+
+Offset 14   Size 4 bytes    HEADER_SIZE
+Offset 18   Size 4 bytes    WIDTH
+Offset 22   Size 4 bytes    HEIGHT
+
+Offset 28   Size 2 bytes    BIT_COUNT; if >= 16, means pixels will store thier own color information; usually 1, 4, 8, 16, 24, and 32
+
+Offset 30   Size 4 bytes    Compression method
+    0   None (most common) - if not 0, print an error, not dealing with it
+    1   RLE 8-bit/pix
+    2   RLE 4-bit/pix
+    3   RGB Bitfield masks
+    4   JPEG
+    5   PNG
+    6   RGBA bitfield masks
+
+Offset 34   Size 4 bytes    Size of raw bitmap data
+
+Offset 46   Size 4 bytes    Number of colors in the palette
+    Ignore if BIT_COUNT >= 16 and work with the pixels
+
+Color table
+Offset = 14 + HEADER_SIZE
+Number of entries is 2^BIT_COUNT
+Each entry is 4 bytes   B G R 0
+
+If BIT_COUNT < 16, each pixel is a BIT_COUNT # of bytes which points to an entry in the color table
+
