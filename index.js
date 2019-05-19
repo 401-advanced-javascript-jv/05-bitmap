@@ -33,7 +33,10 @@ function transformWithCallbacks(file, operation) {
       return;
     }
 
-    console.log(bitmap.pixelColor(25, 16));
+    // console.log(bitmap);
+    console.log(bitmap.pixelColor(26, 16));
+    // console.log(bitmap.pixelColor(26, 16, ))
+    // console.log(bitmap.pixelColor(25, 16));
     
     // bitmap.transform(operation);
 
