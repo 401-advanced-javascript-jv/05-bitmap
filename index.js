@@ -33,18 +33,7 @@ function transformWithCallbacks(file, operation) {
       return;
     }
 
-    // console.log(bitmap);
-    // console.log(bitmap.pixelColor(26, 16));
-    // console.log(bitmap.pixelColor(26, 16, ))
-    // console.log(bitmap.pixelColor(25, 16));
-    // console.log('white', bitmap.pixelColor(1, 1));
-    // console.log('black', bitmap.pixelColor(2, 1));
-    console.log('black', bitmap.pixelColor(2, 1, {r: 31, g: 31, b: 31}));
-    // console.log('red', bitmap.pixelColor(3, 1));
-    // console.log('green', bitmap.pixelColor(4, 1));
-    // console.log('blue', bitmap.pixelColor(5, 1));
-    
-    // bitmap.transform(operation);
+    bitmap.transform(operation);
 
     if (bitmap.invalidOperation) {
       console.error('Invalid transformation requested');
@@ -54,14 +43,14 @@ function transformWithCallbacks(file, operation) {
 
     // Note that this has to be nested!
     // Also, it uses the bitmap's instance properties for the name and thew new buffer
-    // fs.writeFile(bitmap.newFile, bitmap.buffer, (err, out) => {
-    //   if (err) {
-    //     console.error('Unable to write file');
-    //     return;
-    //   }
-    //
-    //   console.log(`Bitmap Transformed: ${bitmap.newFile}`);
-    // });
+    fs.writeFile(bitmap.newFile, bitmap.buffer, (err, out) => {
+      if (err) {
+        console.error('Unable to write file');
+        return;
+      }
+    
+      console.log(`Bitmap Transformed: ${bitmap.newFile}`);
+    });
   });
 }
 
