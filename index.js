@@ -1,95 +1,79 @@
 'use strict';
 
 const fs = require('fs');
+const Bitmap = require('./lib/bitmap.js');
 
-/**
- * Bitmap -- receives a file name, used in the transformer to note the new buffer
- * @param filePath
- * @constructor
- */
-function Bitmap(filePath) {
-  this.file = filePath;
-}
-
-/**
- * Parser -- accepts a buffer and will parse through it, according to the specification, creating object properties for each segment of the file
- * @param buffer
- */
-Bitmap.prototype.parse = function(buffer) {
-  this.buffer = buffer;
-  this.type = buffer.toString('utf-8', 0, 2);
-  //... and so on
-};
-
-/**
- * Transform a bitmap using some set of rules. The operation points to some function, which will operate on a bitmap instance
- * @param operation
- */
-Bitmap.prototype.transform = function(operation) {
-  // This is really assumptive and unsafe
-  transforms[operation](this);
-  this.newFile = this.file.replace(/\.bmp/, `.${operation}.bmp`);
-};
-
-/**
- * Sample Transformer (greyscale)
- * Would be called by Bitmap.transform('greyscale')
- * Pro Tip: Use "pass by reference" to alter the bitmap's buffer in place so you don't have to pass it around ...
- * @param bmp
- */
-const transformGreyscale = (bmp) => {
-
-  console.log('Transforming bitmap into greyscale', bmp);
-
-  //TODO: Figure out a way to validate that the bmp instance is actually valid before trying to transform it
-
-  //TODO: alter bmp to make the image greyscale ...
-
-};
-
-const doTheInversion = (bmp) => {
-  bmp = {};
-}
-
-/**
- * A dictionary of transformations
- * Each property represents a transformation that someone could enter on the command line and then a function that would be called on the bitmap to do this job
- */
-const transforms = {
-  greyscale: transformGreyscale,
-  invert: doTheInversion
+const displayHelp = () => {
+  console.log(`
+Usage notes:
+node index.js <file>.bmp <operation>
+Operation must be one of:
+- colors  : randomizes the colors - scrambles everything in unexpected ways
+- colours : same as colors
+- rows    : randomizes the colors of each pixel on every other line
+- columns : randomizes the colors of each pixel on every other column
+- invert  : inverts the image horizontally
+- flip    : flips the image vertically
+- rotate  : rotates the image by 180 degrees
+`);
+  return;
 };
 
 // ------------------ GET TO WORK ------------------- //
 
-function transformWithCallbacks() {
-
+function transformWithCallbacks(file, operation) {
   fs.readFile(file, (err, buffer) => {
-
     if (err) {
-      throw err;
+      console.error('Unable to read the file');
+      return;
     }
 
-    bitmap.parse(buffer);
+    let bitmap = new Bitmap(file, buffer);
+
+    if (bitmap.invalid) {
+      displayHelp();
+      return;
+    }
 
     bitmap.transform(operation);
+
+    if (bitmap.invalidOperation) {
+      console.error('Invalid transformation requested');
+      displayHelp();
+      return;
+    }
 
     // Note that this has to be nested!
     // Also, it uses the bitmap's instance properties for the name and thew new buffer
     fs.writeFile(bitmap.newFile, bitmap.buffer, (err, out) => {
       if (err) {
-        throw err;
+        console.error('Unable to write file');
+        return;
       }
-      console.log(`Bitmap Transformed: ${bitmap.newFile}`);
+    
+      console.log(`
+Transformed bitmap saved as:
+${bitmap.newFile}
+`);
     });
-
   });
 }
 
-// TODO: Explain how this works (in your README)
-const [file, operation] = process.argv.slice(2);
+function main() {
 
-let bitmap = new Bitmap(file);
+  const [file, operation] = process.argv.slice(2);
 
-transformWithCallbacks();
+  if (!file) {
+    displayHelp();
+    return;
+  }
+  
+  if (operation === 'help') {
+    displayHelp();
+    return;
+  }
+  
+  transformWithCallbacks(file, operation);
+}
 
+main();
