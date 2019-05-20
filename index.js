@@ -10,9 +10,11 @@ node index.js <file>.bmp <operation>
 Operation must be one of:
 - colors  : randomizes the colors - scrambles everything in unexpected ways
 - colours : same as colors
-- invert  : inverts the image
 - rows    : randomizes the colors of each pixel on every other line
 - columns : randomizes the colors of each pixel on every other column
+- invert  : inverts the image horizontally
+- flip    : flips the image vertically
+- rotate  : rotates the image by 180 degrees
 `);
   return;
 };
@@ -49,7 +51,10 @@ function transformWithCallbacks(file, operation) {
         return;
       }
     
-      console.log(`Bitmap Transformed: ${bitmap.newFile}`);
+      console.log(`
+Transformed bitmap saved as:
+${bitmap.newFile}
+`);
     });
   });
 }
