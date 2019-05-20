@@ -47,7 +47,7 @@
 * `npm start` for usage notes (`node index.js` and `npm start` are interchangeable, if one is more comfortable than the other).
 * `<operation>` should be one of the following:
   - `colors`  : randomizes the colors - scrambles everything in unexpected ways
-  - `colours` : same as colors
+  - `colours` : same as `colors`
   - `rows`    : randomizes the colors of each pixel on every other line
   - `columns` : randomizes the colors of each pixel on every other column
   - `invert`  : inverts the image horizontally
