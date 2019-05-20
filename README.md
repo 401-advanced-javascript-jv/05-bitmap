@@ -39,16 +39,20 @@
 ###### `doTheInversion(Bitmap)` takes in a Bitmap object, this method flips the image top-to-bottom (horizontally).
 ###### `rows(Bitmap)` takes in a Bitmap object, scrambles every other row of the image.
 ###### `columns(Bitmap)` takes in a Bitmap object, scrambles every other column of the image.
+###### `flip(Bitmap)` takes in a Bitmap object, flips the image left-to-right (vertically).
 
 ### Setup
 #### Running the app
 * `npm start <file>.bmp <operation>`
 * `npm start` for usage notes (`node index.js` and `npm start` are interchangeable, if one is more comfortable than the other).
 * `<operation>` should be one of the following:
-  * `colors` / `colours` - Will randomize the whole image
-  * `invert` - Will flip the image top-to-bottom
-  * `rows` - Will randomize every other row
-  * `cols` - Will randomize every other column
+  - `colors`  : randomizes the colors - scrambles everything in unexpected ways
+  - `colours` : same as colors
+  - `rows`    : randomizes the colors of each pixel on every other line
+  - `columns` : randomizes the colors of each pixel on every other column
+  - `invert`  : inverts the image horizontally
+  - `flip`    : flips the image vertically
+  - `rotate`  : rotates the image by 180 degrees
   
 #### Tests
 * `npm test` To run tests
