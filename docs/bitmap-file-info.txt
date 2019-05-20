@@ -1,7 +1,7 @@
 Bitmap header
-All integers stored in LE format
-Size 2 bytes - readInt16LE
-Size 4 bytes - readInt32LE
+All integers stored in unsigned LE format
+Size 2 bytes - readUInt16LE
+Size 4 bytes - readUInt32LE
 Offset 0    Size 2 bytes    'BM' in ASCII encoding (42 4D)
 Offset 2    Size 4 bytes    Bitmap size in bytes
 Offset 10   Size 4 bytes    Bitmap image data / pixel array address/offset/location
@@ -9,8 +9,8 @@ Offset 10   Size 4 bytes    Bitmap image data / pixel array address/offset/locat
 DIB HEADER - starts @ offset 14
 
 Offset 14   Size 4 bytes    HEADER_SIZE
-Offset 18   Size 4 bytes    WIDTH
-Offset 22   Size 4 bytes    HEIGHT
+Offset 18   Size 4 bytes    WIDTH       SIGNED!
+Offset 22   Size 4 bytes    HEIGHT      SIGNED!
 
 Offset 28   Size 2 bytes    BIT_COUNT; if >= 16, means pixels will store thier own color information; usually 1, 4, 8, 16, 24, and 32
 
@@ -18,10 +18,10 @@ Offset 30   Size 4 bytes    Compression method
     0   None (most common)  No compression
     1   RLE 8-bit/pix
     2   RLE 4-bit/pix
-    3   RGB Bitfield masks  No compression
+    3   RGB Bitfield masks  No compression  Necessary for 16-bit images;
     4   JPEG
     5   PNG
-    6   RGBA bitfield masks
+    6   RGBA bitfield masks No compression
 
 Offset 34   Size 4 bytes    Size of raw bitmap data
 
